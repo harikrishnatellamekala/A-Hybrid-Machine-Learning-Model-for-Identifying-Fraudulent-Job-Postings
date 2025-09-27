@@ -1,4 +1,3 @@
-# A-Hybrid-Machine-Learning-Model-for-Identifying-Fraudulent-Job-Postings
 # FakeJobDetector 🔍
 
 A professional web application to detect **fake job postings** using NLP + ML models.  

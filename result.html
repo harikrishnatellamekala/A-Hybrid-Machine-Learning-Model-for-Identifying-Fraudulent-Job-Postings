@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extracted Job Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  {% extends "base.html" %}
+  {% block content %}
+    <div class="container">
+        <h1>Extracted Job Description</h1>
+
+        {% if extra_msg %}
+            <p><strong>{{ extra_msg }}</strong></p>
+        {% endif %}
+
+        {% if match_count is defined %}
+            <p><strong>Matched Keywords Count: </strong> {{ match_count }}</p>
+        {% endif %}
+
+        {% if job_details %}
+            <h2>Structured Job Details</h2>
+            <table border="1" cellpadding="10" cellspacing="0" text-align="center">
+                {% for key, value in job_details.items() %}
+                    <tr>
+                        <td><strong>{{ key }}</strong></td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No structured job details found.</p>
+        {% endif %}
+
+        <h2 style="margin-top: 30px;">Select Algorithm to Predict</h2>
+
+        <div class="btn-container">
+            {# Show algorithm buttons ONLY when the job is considered genuine (is_genuine == True) #}
+            {% if is_genuine %}
+                <form action="{{ url_for('run_model', model_name='naive_bayes') }}" method="get" style="display:inline-block; margin-right:8px;">
+                    <button type="submit">Naive Bayes</button>
+                </form>
+
+                <form action="{{ url_for('run_model', model_name='random_forest') }}" method="get" style="display:inline-block; margin-right:8px;">
+                    <button type="submit">Random Forest</button>
+                </form>
+
+                <form action="{{ url_for('run_model', model_name='xgboost') }}" method="get" style="display:inline-block; margin-right:8px;">
+                    <button type="submit">XGBoost</button>
+                </form>
+
+                <form action="{{ url_for('run_model', model_name='svm') }}" method="get" style="display:inline-block; margin-right:8px;">
+                    <button type="submit">Support Vector Machine</button>
+                </form>
+            {% else %}
+                <p style="margin-top:16px;"><em>ML algorithms are hidden because the uploaded description did not meet the minimum matching requirements.</em></p>
+            {% endif %}
+        </div>
+
+        <div style="margin-top:20px;">
+            <a href="{{ url_for('index') }}">Try another</a>
+        </div>
+    </div>
+  {% endblock %}
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>FakeJobDetector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="left">
+      <a class="brand" href="{{ url_for('landing') }}">FakeJobDetector</a>
+    </div>
+    <nav class="main-nav">
+      <a href="{{ url_for('landing') }}">Home</a>
+      <a href="{{ url_for('about') }}">About Us</a>
+      <a href="{{ url_for('contact') }}">Contact Us</a>
+    </nav>
+    <div class="right">
+      {% if session.get('user_id') %}
+        <span class="welcome">Hello, {{ session.get('username') }}</span>
+        <a class="btn small" href="{{ url_for('index') }}">Dashboard</a>
+        <a class="btn small" href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a class="btn small" href="{{ url_for('login') }}" style="margin-right:12px;">Login</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main class="page-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-area">
+          {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    &copy; {{ (2025) }} FakeJobDetector — Built for demo.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="landing-card">
+    <h1 class="quote">"Trust good work, but verify job posts."</h1>
+    <p class="lead">Our mission: help employees work safely and avoid fake job postings.</p>
+
+    <div class="callout">
+      <p><strong>Are you a new user?</strong> Try to <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('register') }}">register</a>.</p>
+      <p><small>After login you will get access to the tool (link / image / text inputs).</small></p>
+    </div>
+
+    <div style="margin-top:18px;">
+      <a class="btn big" href="{{ url_for('login') }}">Login</a>
+      <a class="btn big ghost" href="{{ url_for('register') }}">Register</a>
+    </div>
+  </div>
+{% endblock %}

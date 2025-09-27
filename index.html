@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="dashboard">
+    <h2>Welcome to FakeJobDetector Tool</h2>
+    <p class="muted">Choose one input method below (link, image, or paste job text) and press Submit.</p>
+
+    <form method="post" enctype="multipart/form-data" class="input-form">
+      <div class="input-choice">
+        <label><input type="radio" name="input_type" value="link" checked> Link</label>
+        <label><input type="radio" name="input_type" value="image"> Image</label>
+        <label><input type="radio" name="input_type" value="text"> Text</label>
+      </div>
+
+      <div class="field link-field">
+        <label>Job Link</label>
+        <input name="job_link" placeholder="https://example.com/job-post">
+      </div>
+
+      <div class="field image-field" style="display:none;">
+        <label>Upload Job Image</label>
+        <input type="file" name="job_image" accept="image/*">
+      </div>
+
+      <div class="field text-field" style="display:none;">
+        <label>Paste Job Description</label>
+        <textarea name="job_text" rows="8" placeholder="Paste job description here..."></textarea>
+      </div>
+
+      <button class="btn" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    // small client-side script to show/hide fields based on selected radio
+    const radios = document.querySelectorAll('input[name="input_type"]');
+    const linkField = document.querySelector('.link-field');
+    const imageField = document.querySelector('.image-field');
+    const textField = document.querySelector('.text-field');
+
+    function updateFields(){
+      const v = document.querySelector('input[name="input_type"]:checked').value;
+      linkField.style.display = v === 'link' ? 'block' : 'none';
+      imageField.style.display = v === 'image' ? 'block' : 'none';
+      textField.style.display = v === 'text' ? 'block' : 'none';
+    }
+    radios.forEach(r => r.addEventListener('change', updateFields));
+    updateFields();
+  </script>
+{% endblock %}

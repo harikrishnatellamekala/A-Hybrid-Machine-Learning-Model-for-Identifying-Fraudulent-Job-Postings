@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Algorithm Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ result.model_name }} Result</h1>
+
+        <p><strong>Prediction:</strong> {{ result.prediction }}</p>
+        <p><strong>Confidence:</strong> {{ result.confidence }}%</p>
+
+        {% if extra_checks %}
+            <h2> Suggested Verification Steps (Moderate)</h2>
+            <ul>
+                {% for item in extra_checks %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div style="margin-top:20px;">
+            <a href="{{ url_for('index') }}">Try another</a>
+        </div>
+    </div>
+</body>
+</html>
